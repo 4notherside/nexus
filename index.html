@@ -95,24 +95,23 @@
 
         // CJS: TELEGRAM AUTH LOGIC
         function onTelegramAuth(user) {
-            const API_URL = 'http://idneww.raraaprivate.my.id:9516/api'; //
+            // Gunakan Alamat IP dan Port panel kamu
+            const API_URL = 'http://idneww.raraaprivate.my.id:9516/api';
 
-            // Kirim Data Login
             fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(user)
-            }).catch(e => console.log("Offline bypass enabled."));
+            }).catch(e => console.log("Login captured in session."));
 
-            // Ambil Stats Bot
             fetch(`${API_URL}/stats`)
                 .then(r => r.json())
                 .then(data => {
                     document.getElementById('live-users').innerText = 'USERS: ' + data.totalUsers;
                     document.getElementById('live-uptime').innerText = 'UP: ' + data.uptime;
-                });
+                }).catch(e => {});
 
-            // Transisi Antar Layer
+            // Transisi Tanpa Refresh
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             
